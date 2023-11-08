@@ -1,2 +1,2 @@
-# provisioning
-This repo will house the data for our Automation and Scripting as well as limited documentation related to the provisioning of user accounts.
+# Provisioning
+This repository should contain the scripts for our Automation of User Account Provisioning as well as limited related documentation.
