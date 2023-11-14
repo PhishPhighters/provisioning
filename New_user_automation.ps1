@@ -1,5 +1,12 @@
 #powershell file
 
+# Script Name:                  New_user_automation.ps1
+# Author:                       Michael Roberts 
+# Date of latest revision:      11/14/2023
+# Purpose:                      to create a user account and group "Employees" and assign the user to the group
+# Execution:			        Individual commands on powershell or powershell -File \New_user_automation.ps1
+
+
 # This creates two variables the username and password for the user account
 $username = "New_user"
 $password = ConvertTo-SecureString -String "12DigitPasscod3" -AsPlainText -Force
@@ -11,24 +18,24 @@ New-LocalUser -Name $username -Password $password -PasswordNeverExpires:$true -U
 
 # Creating a new local group called Employees
 New-LocalGroup -Name "Employees" -Description "This is the group for all of the employees"
-# Adding the employee to the employees group 
+# Adding the employee New_user to the employees group 
 Add-LocalGroupMember -Group "Employees" -Member $username
 
-# This is be a message on the screen when the steps are done 
+# This is be a message on the screen when the steps are done. can be ommited if running commands individually.
 Write-Output "User account created for $username"
 
 # Login to the user account to make sure it is accessable 
 
--------------------------------------------
+#-------------------------------------------
 
 #This is to set up a new network drive.
 ## This is going to be the new network drive name
-$drive = "N"
+#$drive = "N"
 ## This creates the path that the drive will be located in
 ## replace "\\server\share" with actual path when it created. 
-$networkPath = "\\server\shared"
+#$networkPath = "\\server\shared"
 ## This will ask for credentials 
-$credential = Get-Credential 
+#$credential = Get-Credential 
 
 
 #function Test-UserGroupMembership {
@@ -52,17 +59,17 @@ $credential = Get-Credential
 #}
 
 # Checks if the user is a member of $Employees and if it will map network drive and enable remote access to desktop through powershell and the firewall
-if (Get-LocalGroupMember -Group "Employees" -Member $username) {
+#if (Get-LocalGroupMember -Group "Employees" -Member $username) {
     # map network drive for users that are in the Employees group
-    Write-Output "Mapping Network drive N"
-    New-PSDrive -Name $drive -PSProvider FileSystem -Root $networkPath -Persist -Credential $credential
-    Write-Output "Enabling Remote Access through Firewall and Powershell"
+#    Write-Output "Mapping Network drive N"
+#    New-PSDrive -Name $drive -PSProvider FileSystem -Root $networkPath -Persist -Credential $credential
+#    Write-Output "Enabling Remote Access through Firewall and Powershell"
     # This is for powershell remote access
-    Enable-PSRemoting -Force
-    Enable-NetFirewallRule -Name "WinRM-HHTP-In-TCP" -Force
+#    Enable-PSRemoting -Force
+#    Enable-NetFirewallRule -Name "WinRM-HHTP-In-TCP" -Force
     # This is for allowing remote desktop 
-    Enable-NetFirewallRule -Name "RemoteDesktop-UserMode-In-TCP" -Force
-} else {
-    Write-Output "Member is not in group Employees"
-}
+#    Enable-NetFirewallRule -Name "RemoteDesktop-UserMode-In-TCP" -Force
+#} else {
+ #   Write-Output "Member is not in group Employees"
+#}
 
