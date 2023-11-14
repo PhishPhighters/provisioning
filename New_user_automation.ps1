@@ -28,7 +28,7 @@ $drive = "N"
 ## replace "\\server\share" with actual path when it created. 
 $networkPath = "\\server\shared"
 ## This will ask for credentials 
-## $credentials = Get-Credential 
+$credential = Get-Credential 
 
 
 #function Test-UserGroupMembership {
@@ -55,8 +55,7 @@ $networkPath = "\\server\shared"
 if (Get-LocalGroupMember -Group "Employees" -Member $username) {
     # map network drive for users that are in the Employees group
     Write-Output "Mapping Network drive N"
-    $credential = New-Object -TypeName PSCredential -ArguementList administrator, Phishy1
-    New-PSDrive -Name $drive -PSProvider FileSystem -Root $networkPath -Persist
+    New-PSDrive -Name $drive -PSProvider FileSystem -Root $networkPath -Persist -Credential $credential
     Write-Output "Enabling Remote Access through Firewall and Powershell"
     # This is for powershell remote access
     Enable-PSRemoting -Force
