@@ -80,3 +80,6 @@ CALUS(){
     update_smbconf
     status-checker
 }
+
+
+CALUS
