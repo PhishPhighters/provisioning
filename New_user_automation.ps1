@@ -26,35 +26,36 @@ Write-Output "User account created for $username"
 $drive = "N"
 ## This creates the path that the drive will be located in
 ## replace "\\server\share" with actual path when it created. 
-$networkPath = "\\server\share"
+$networkPath = "\\server\shared"
 ## This will ask for credentials 
 ## $credentials = Get-Credential 
 
 
-function Test-UserGroupMembership {
+#function Test-UserGroupMembership {
     # This sets the parameters of the username and groupname to the previously specified username and groupname
-    param (
-        [string]$username,
-        [string]$Employees
-    )
+ #   param (
+  #      [string]$username,
+   #     [string]$Employees
+    #)
     # This is setting the testing parameters within the variable that will check in the try statement 
-    $user = New-Object System.Security.Principal.NTAccount($username)
-    $group = New-Object System.Security.Principal.NTAccount($Employees)
+    #$user = New-Object System.Security.Principal.NTAccount($username)
+    #$group = New-Object System.Security.Principal.NTAccount($Employees)
     # This is running a try statement to check if the security of the person is consistent with the group and is in the group. If not it will spit out a detailed Error Message
-    try {
-        $isMember = $user.Translate([System.Security.Principal.SecurityIdentifier]).IsInRole($group.Translate([System.Security.Principal.SecurityIdentifier]))
-        return $isMember
-    }
-    catch {
-        Write-Error "Error checking group membership $($_.Exception.Message)"
-        return $false
-    }
-}
+    #try {
+     #   $isMember = $user.Translate([System.Security.Principal.SecurityIdentifier]).IsInRole($group.Translate([System.Security.Principal.SecurityIdentifier]))
+     #   return $isMember
+    #}
+    #catch {
+     #   Write-Error "Error checking group membership $($_.Exception.Message)"
+     #   return $false
+    #}
+#}
 
 # Checks if the user is a member of $Employees and if it will map network drive and enable remote access to desktop through powershell and the firewall
-if (Test-UserGroupMembership -UserName $username -GroupName $Employees) {
+if (Get-LocalGroupMember -Group "Employees" -Member $username) {
     # map network drive for users that are in the Employees group
     Write-Output "Mapping Network drive N"
+    $credential = New-Object -TypeName PSCredential -ArguementList administrator, Phishy1
     New-PSDrive -Name $drive -PSProvider FileSystem -Root $networkPath -Persist
     Write-Output "Enabling Remote Access through Firewall and Powershell"
     # This is for powershell remote access
