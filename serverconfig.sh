@@ -12,38 +12,77 @@
 getname(){
     read -p "Enter the username to enable for Samba sharing on this server: " username
     echo $username
+    echo ""
+    sleep 5
+    echo "Okay, setting you up with $username"
+    echo ""
+    echo ""
 }
 
 updater(){
-    sudo apt update && sudo apt upgrade -y && echo "Upgraded system"
-    sleep 1
+    sudo apt update && sudo apt upgrade -y && echo "###### Upgraded system"
+    echo ""
+    sleep 2
 }
 
 app-fetcher(){
-    sudo apt install cifs-utils -y && echo "Installed CIFS"
-    sleep 1
-    sudo apt-get install nano -y && echo "Installed nano"
-    sleep 1
-    sudo apt install samba -y && echo "Installed samba"
-    sleep 1
-    sudo apt-get install ufw -y && echo "Installed ufw"
-    sleep 1
+    echo ""
+    echo ""
+    sudo apt install cifs-utils -y && echo "###### Installed CIFS"
+    echo ""
+    sleep 2
+
+    echo ""
+    echo ""
+    sudo apt-get install nano -y && echo "###### Installed nano"
+    echo ""
+    sleep 2
+
+    echo ""
+    echo ""
+    sudo apt install samba -y && echo "###### Installed samba"
+    echo ""
+    sleep 2
+
+    echo ""
+    echo ""
+    sudo apt-get install ufw -y && echo "###### Installed ufw"
+    echo ""
+    sleep 2
 }
 
 firewall(){
-    sudo ufw allow 22 && echo "allowed SSH"
-    sleep 1
-    sudo ufw allow 139/tcp && sudo ufw allow 445/tcp && echo "allowed TCP fileshare 139/445"
-    sleep 1
+    echo ""
+    echo ""
+    sudo ufw allow 22 && echo "###### Allowed SSH"
+    echo ""
+    sleep 2
+
+    echo ""
+    echo ""
+    sudo ufw allow 139/tcp && sudo ufw allow 445/tcp && echo "###### Allowed TCP fileshare 139/445"
+    echo ""
+    sleep 2
 }
 
 new_acct(){
-    sudo adduser $username && echo "created user on Ubuntu with username $username"
-    sleep 1
-    sudo smbpasswd -a $username && echo "added $username to Samba"
-    sleep 1
-    sudo smbpasswd -e $username && echo "enabled $username on Samba"
-    sleep 1
+    echo ""
+    echo ""
+    sudo adduser $username && echo "###### Created user on Ubuntu with username $username"
+    echo ""
+    sleep 2
+
+    echo ""
+    echo ""
+    sudo smbpasswd -a $username && echo "###### Added $username to Samba"
+    echo ""
+    sleep 2
+
+    echo ""
+    echo ""
+    sudo smbpasswd -e $username && echo "###### Enabled $username on Samba"
+    echo ""
+    sleep 2
 }
 
 update_smbconf(){
@@ -56,18 +95,36 @@ update_smbconf(){
         echo "$line" | sudo tee -a "$smb_conf" > /dev/null
     done
 
-    echo "Modified smb_conf"
-    sleep 1
+    echo ""
+    echo ""
+    echo "###### Modified smb_conf"
+    sleep 3
+    echo ""
+
     sudo touch /.autorelabel
 }
 
 status-checker(){
+    echo ""
+    echo ""
     sudo ufw status && sleep 3
-    sudo systemctl restart ssh && echo "restarted ssh" && sleep 1
+    echo ""
+    echo ""
+    sudo systemctl restart ssh && echo "###### restarted ssh" && sleep 1
+    echo ""
+    echo ""
     sudo service smbd status && sleep 3
-    sudo systemctl restart smbd && echo "restarted Samba" && sleep 1
+    echo ""
+    echo ""
+    sudo systemctl restart smbd && echo "###### restarted Samba" && sleep 1
+    echo ""
+    echo ""
     sudo service ssh status && sleep 3
-    echo "Reboot your server for changes to take effect."
+    echo ""
+    echo ""
+    echo "###### Reboot your server for changes to take effect."
+    echo ""
+    echo ""
 }
 
 
