@@ -5,7 +5,7 @@
 # Date of latest revision:      11/14/2023
 # Purpose:                      to create a user account and group "Employees" and assign the user to the group
 # Execution:			        Individual commands on powershell or powershell -File \New_user_automation.ps1
-
+# Documentation                 https://chat.openai.com/c/a44d155e-8c50-45b2-bd85-9e79ee9da1ce 
 
 # This creates two variables the username and password for the user account
 $username = "New_user"
