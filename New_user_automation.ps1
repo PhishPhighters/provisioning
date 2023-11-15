@@ -20,6 +20,8 @@ New-LocalUser -Name $username -Password $password -PasswordNeverExpires:$true -U
 New-LocalGroup -Name "Employees" -Description "This is the group for all of the employees"
 # Adding the employee New_user to the employees group 
 Add-LocalGroupMember -Group "Employees" -Member $username
+# if you want to add the employee straight to the users group
+# Add-LocalGroupMember -Group "Users" -Member $username
 
 # This is be a message on the screen when the steps are done. can be ommited if running commands individually.
 Write-Output "User account created for $username"
