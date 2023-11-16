@@ -38,7 +38,7 @@ user_payload = {
     'accountEnabled': True,
     'displayName': 'Squirrelly Rabbits',
     'mailNickname': 'squirrellyrabbits',
-    'userPrincipalName': 'Squirrellyrabbits@outlook.com',  # Replace with user details
+    'userPrincipalName': 'Squirrellyrabbits@outlook.com', 
     'passwordProfile': {
         'forceChangePasswordNextSignIn': True,
         'password': 'Phishey1!' 
